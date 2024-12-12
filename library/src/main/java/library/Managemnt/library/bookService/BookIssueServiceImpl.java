@@ -43,7 +43,7 @@ public class BookIssueServiceImpl implements BookIsssueService {
 		LocalDate today = LocalDate.now();
 		LocalDate returnDate = bookIssue.getReturnDate();
 		long days = ChronoUnit.DAYS.between(today, returnDate);
-		long fine = days * 20;
+		long fine = days * 30;
 		if (days < 0) {
 			return "due days" + days;
 		}
@@ -69,7 +69,7 @@ public class BookIssueServiceImpl implements BookIsssueService {
 		}
 
 		long BookIssueToUser = bookIssueRepository. countByUser_UserId(userId);
-		if (BookIssueToUser >= 16) {
+		if (BookIssueToUser >= 17) {
 			throw new MaxBookIssuedException("User has reached the limit of books");
 		}
 
