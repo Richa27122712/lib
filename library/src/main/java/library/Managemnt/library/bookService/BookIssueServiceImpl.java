@@ -69,7 +69,7 @@ public class BookIssueServiceImpl implements BookIsssueService {
 		}
 
 		long BookIssueToUser = bookIssueRepository. countByUser_UserId(userId);
-		if (BookIssueToUser >= 15) {
+		if (BookIssueToUser >= 16) {
 			throw new MaxBookIssuedException("User has reached the limit of books");
 		}
 
