@@ -5,6 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -113,8 +114,14 @@ public class BookIssueServiceImpl implements BookIsssueService {
 //
 //			book.setAvailableQuantity(availableQuantity);
 		}
-		return bookIssue;
-	}
+		return bookIssue.stream() .sorted((d1, d2) -> {
+            // Parse the dueDays string into integers
+            int dueDays1 = Integer.parseInt(d1.getDueDays().replaceAll("[^0-9]", "")); // Remove non-digit characters
+            int dueDays2 = Integer.parseInt(d2.getDueDays().replaceAll("[^0-9]", ""));
+            return Integer.compare(dueDays1, dueDays2); // Compare dueDays
+        })
+        .collect(Collectors.toList()); // Collect the sorted result into a list
+}
 
 	public List<BookDTO> getBooksByUserId(int userId) {
 		return bookIssueRepository.findBooksByUserId(userId);
