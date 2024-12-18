@@ -30,8 +30,8 @@ public class BookController {
         return new ResponseEntity<>(savedbook, HttpStatus.CREATED);
     }
     @GetMapping("/get")
-    public ResponseEntity<List<Book>> getAllBooks(){
-  List<Book> books=  	bookService.GetAll();
+    public ResponseEntity<List<Book>> getAllBooks(@RequestParam (required=false) String sortBy){
+  List<Book> books=  	bookService.GetAll( sortBy);
     	return new ResponseEntity<>(books,HttpStatus.OK);
     }
     

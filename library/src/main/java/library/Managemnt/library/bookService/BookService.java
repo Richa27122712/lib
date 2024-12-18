@@ -10,7 +10,7 @@ public interface BookService {
  
 	
 	Book SaveBookById(Book book);
-List<Book> GetAll();
+List<Book> GetAll(String sortBy);
 
 Book getBook(String bookName);
 Book updateBookQuantity(int bookId,int quantity);

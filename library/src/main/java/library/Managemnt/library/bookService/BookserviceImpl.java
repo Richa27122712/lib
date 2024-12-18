@@ -1,9 +1,12 @@
+
+
 package library.Managemnt.library.bookService;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import library.Managemnt.library.Exceptions.BookNotFoundException;
@@ -21,9 +24,14 @@ public class BookserviceImpl  implements BookService{
 	return	bookRepository.save(book);
 	}
 	
-	public List<Book> GetAll(){
-		return bookRepository.findAll();
-	}
+	public List<Book> GetAll(String sortBy){
+		if("bookName".equalsIgnoreCase(sortBy)) {
+			return bookRepository.findAll(Sort.by("bookName"));
+		}else if("id".equalsIgnoreCase(sortBy)) {
+			return bookRepository.findAll(Sort.by("bookId"));
+		}else {
+		return bookRepository.findAll();//default sorting
+	}}
 	
 	public Book getBook(String bookName) {
 		Book book=bookRepository.findByBookName(bookName);
@@ -42,6 +50,8 @@ public class BookserviceImpl  implements BookService{
 		book.setQuantity(quantity);
 		return bookRepository.save(book);
 	}
+
+	
 
 	
 	
